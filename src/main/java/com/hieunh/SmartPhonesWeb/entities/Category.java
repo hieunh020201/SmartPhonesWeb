@@ -8,7 +8,7 @@ import java.util.Set;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;
@@ -16,12 +16,18 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
+    public Category() {
+    }
 
-    public int getId() {
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,5 +45,14 @@ public class Category {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", products=" + products +
+                '}';
     }
 }
