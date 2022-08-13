@@ -7,8 +7,8 @@ import java.util.Set;
 @Table(name = "Category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(nullable = false, length = 13)
+    private String id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;
@@ -23,11 +23,11 @@ public class Category {
         this.name = name;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,12 +47,5 @@ public class Category {
         this.products = products;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", products=" + products +
-                '}';
-    }
+
 }

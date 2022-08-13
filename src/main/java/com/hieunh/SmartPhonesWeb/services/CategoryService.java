@@ -13,7 +13,7 @@ public class CategoryService {
     @Autowired
     CategoryRepository repository;
 
-    public List<Category>listAll() {
+    public List<Category> listAll() {
         return (List<Category>) repository.findAll();
     }
 
@@ -21,10 +21,10 @@ public class CategoryService {
         repository.save(category);
     }
 
-    public void delete(Integer id) throws NotFoundException {
+    public void delete(String id) throws NotFoundException {
         Long count = repository.countById(id);
         if (count == null || count == 0) {
-            throw new NotFoundException("Could not find any users with ID " + id);
+            throw new NotFoundException("Could not find any categories with ID " + id);
         }
         repository.deleteById(id);
     }

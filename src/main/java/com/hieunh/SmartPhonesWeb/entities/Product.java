@@ -9,7 +9,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String name;
@@ -20,20 +20,33 @@ public class Product {
     @Column(nullable = false, length = 50)
     private String url;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     public Product() {
     }
 
-    public Product(int id, String name, Double price, String url, Category category) {
-        this.id = id;
+    public Product(String name, Double price, String url, Integer quantity, Category category) {
         this.name = name;
         this.price = price;
         this.url = url;
+        this.quantity = quantity;
         this.category = category;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+
 
     public Category getCategory() {
         return category;
@@ -43,11 +56,11 @@ public class Product {
         this.category = category;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,14 +88,5 @@ public class Product {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", url='" + url + '\'' +
-                ", category=" + category +
-                '}';
-    }
+
 }
