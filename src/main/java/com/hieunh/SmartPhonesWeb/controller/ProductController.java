@@ -24,22 +24,27 @@ public class ProductController {
     private ProductService productService;
 
 
-    @GetMapping("/product")
+    @GetMapping("/admin/product")
     public String showProduct(Model model) {
         List<Product> products = productService.listAll();
         model.addAttribute("products", products);
 
-        return "product";
+        return "admin/product";
     }
 
-    @PostMapping("/product/save")
+    @PostMapping("/admin/product/save")
     public String saveProduct(Product product, RedirectAttributes ra) {
-        productService.save(product);
-        ra.addFlashAttribute("message", "The product has been save successfully");
-        return "redirect:/product";
+        try {
+            productService.save(product);
+            ra.addFlashAttribute("message", "The product has been save successfully");
+        } catch (Exception e) {
+            ra.addFlashAttribute("errorMessage", "The product has been saved unsuccessfully");
+        }
+
+        return "redirect:/admin/product";
     }
 
-    @GetMapping("/product/edit/{id}")
+    @GetMapping("/admin/product/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
             Product product = productService.findById(id);
@@ -47,24 +52,24 @@ public class ProductController {
             List<Category> categories = categoryService.listAll();
             model.addAttribute("categories", categories);
             model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
-            return "product_form";
+            return "admin/product_form";
         } catch (NotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/product";
+            return "redirect:/admin/product";
         }
     }
 
-    @GetMapping("/product/new")
+    @GetMapping("/admin/product/new")
     public String showNewProductForm(Model model) {
         List<Category> categories = categoryService.listAll();
         System.out.println("Xem nào" + categories);
         model.addAttribute("categories", categories);
         model.addAttribute("product", new Product());
         model.addAttribute("pageTitle", "Add New Product");
-        return "product_form";
+        return "admin/product_form";
     }
 
-    @GetMapping("/product/delete/{id}")
+    @GetMapping("/admin/product/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
             productService.delete(id);
@@ -72,6 +77,6 @@ public class ProductController {
         } catch (NotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/product";
+        return "redirect:/admin/product";
     }
 }

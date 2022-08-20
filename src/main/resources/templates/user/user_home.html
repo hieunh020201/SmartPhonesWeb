@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>User login</h2>
+    <p>
+        Your email is: <b>user</b>
+    </p>
+    <form th:action="@{/user/logout}" method="post">
+        <input type="submit" value="logout">
+    </form>
+</body>
+</html>
