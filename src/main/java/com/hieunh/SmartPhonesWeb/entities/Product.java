@@ -27,6 +27,9 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @OneToOne(mappedBy = "product")
+    private Cart cart;
+
     public Product() {
     }
 

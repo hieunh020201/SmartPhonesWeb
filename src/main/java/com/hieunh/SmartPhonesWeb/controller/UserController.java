@@ -1,11 +1,14 @@
 package com.hieunh.SmartPhonesWeb.controller;
 
+import com.hieunh.SmartPhonesWeb.entities.Cart;
 import com.hieunh.SmartPhonesWeb.entities.Category;
 import com.hieunh.SmartPhonesWeb.entities.Product;
 import com.hieunh.SmartPhonesWeb.entities.User;
 import com.hieunh.SmartPhonesWeb.services.CustomUserDetailService;
+import com.hieunh.SmartPhonesWeb.services.ProductService;
 import com.hieunh.SmartPhonesWeb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +27,9 @@ public class UserController {
 
     @Autowired
     private CustomUserDetailService service;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/admin/login")
     public String viewAdminLoginPage(){
@@ -63,10 +69,20 @@ public class UserController {
 
     @GetMapping("/register")
     public String saveAccountUser(Model model) {
-
-//        model.addAttribute("categories", categories);
         model.addAttribute("user", new User());
-//        model.addAttribute("pageTitle", "Add New Product");
         return "register_form";
+    }
+
+    @GetMapping("/user/product")
+    public String viewUserProductPage(Model model) {
+        List<Product> products = productService.listAll();
+        model.addAttribute("products", products);
+
+        return "user/product_page";
+    }
+
+    @GetMapping("/user/cart")
+    public String viewUserCartPage(Model model) {
+        Specification<Cart> specification =
     }
 }

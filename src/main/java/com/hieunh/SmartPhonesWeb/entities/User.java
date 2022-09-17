@@ -21,6 +21,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     @Enumerated(EnumType.STRING)
     private Role role;
     public User() {
@@ -70,5 +73,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

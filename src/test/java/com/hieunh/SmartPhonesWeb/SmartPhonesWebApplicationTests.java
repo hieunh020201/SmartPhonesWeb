@@ -8,6 +8,7 @@ class SmartPhonesWebApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

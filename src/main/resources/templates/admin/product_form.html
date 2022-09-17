@@ -12,11 +12,15 @@
     </div>
     <div class="m-3">
         <form th:action="@{/admin/product/save}" method="post" th:object="${product}">
-            <div class="input-group p-0 mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">ID</span>
-                </div>
-                <input type="text" class="form-control" id="id" th:field="*{id}" disabled>
+<!--            <div class="input-group p-0 mb-2">-->
+<!--                <div class="input-group-prepend">-->
+<!--                    <span class="input-group-text">ID</span>-->
+<!--                </div>-->
+                <input type="hidden" class="form-control" id="id" th:field="*{id}">
+<!--            </div>-->
+            <div class="form-group">
+                <label>Tên sản phẩm: </label>
+                <input type="text" class="form-control" maxlength="50" value="" th:field="*{name}" required>
             </div>
             <div class="form-group">
                 <label>Danh mục: </label>
@@ -27,14 +31,11 @@
 
                 </select>
             </div>
-            <div class="form-group">
-                <label>Tên sản phẩm: </label>
-                <input type="text" class="form-control" maxlength="30" value="" th:field="*{name}" required>
-            </div>
+
             <div class="d-flex">
                 <div class="form-group">
                     <label>Giá: </label>
-                    <input type="number" class="form-control input-price" min="1" value="" th:field="*{price}" required>
+                    <input type="text" class="form-control input-price" pattern="[0-9]*[.,]?[0-9]" value="" th:field="*{price}" required>
                 </div>
                 <div class="form-group ml-1">
                     <label>Số lượng: </label>
